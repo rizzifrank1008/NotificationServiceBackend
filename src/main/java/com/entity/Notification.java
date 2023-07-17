@@ -1,8 +1,10 @@
 package com.entity;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,12 +26,12 @@ public class Notification {
 	private Integer mittente;
 
 	private Integer destinatario;
-
 	@UpdateTimestamp
-	private Timestamp created_date;
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	private LocalDateTime created_date;
 
 	public Notification(Integer id, String text, String status, Integer mittente, Integer destinatario,
-			Timestamp created_date) {
+			LocalDateTime created_date) {
 
 		this.id = id;
 		this.text = text;

@@ -2,23 +2,28 @@ package com.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.entity.Notification;
+import com.repository.NotificationRepository;
 import com.service.NotificationService;
 
 @RestController
-
+@CrossOrigin
 @RequestMapping("/api/notification-service")
 public class NotificationController {
 
@@ -34,15 +39,20 @@ public class NotificationController {
 
 	@Autowired
 	private NotificationService notificationService;
+	@Autowired
+	private NotificationRepository nr;
 
 	@PostMapping("/createNotification")
 	public Notification saveNotification(@RequestBody Notification notification) {
 		return notificationService.saveOrUpdateNotification(notification);
 	}
 
-	@PutMapping("/updateNotification")
-	public Notification updateNotification(@RequestBody Notification notification) {
-		return notificationService.saveOrUpdateNotification(notification);
+	@PatchMapping("/updateNotification")
+	public ResponseEntity<Notification> patchNotification(@RequestBody Notification notification) {
+		Optional<Notification> n = nr.findById(notification.getId());
+		n.get().setStatus(notification.getStatus());
+		nr.save(n.get());
+		return new ResponseEntity<Notification>(n.get(), HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/deleteNotification/{vatNumber}")

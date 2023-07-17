@@ -12,6 +12,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.entity.Notification;
 
 public interface NotificationRepository extends JpaRepository<Notification, Integer> {
-//	@Query("SELECT n FROM Notification n WHERE n.destinatario=:destinatario")
+	// @Query("SELECT n FROM Notification n WHERE n.destinatario=:destinatario")
 	public List<Notification> findByDestinatario(Integer destinatario);
 }
