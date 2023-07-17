@@ -8,15 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
 
 @Entity
 
@@ -24,27 +15,88 @@ public class Notification {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer Id;
+	private Integer id;
 
 	private String text;
 
 	private String status;
 
-	private String mittente;
+	private Integer mittente;
 
-	private String destinatario;
+	private Integer destinatario;
 
 	@UpdateTimestamp
 	private Timestamp created_date;
 
+	public Notification(Integer id, String text, String status, Integer mittente, Integer destinatario,
+			Timestamp created_date) {
+
+		this.id = id;
+		this.text = text;
+		this.status = status;
+		this.mittente = mittente;
+		this.destinatario = destinatario;
+		this.created_date = created_date;
+	}
+
+	public Notification() {
+
+	}
+
 //costruttore insert
-	public Notification(String text, String status, String mittente, String destinatario) {
+	public Notification(String text, String status, Integer mittente, Integer destinatario) {
 
 		this.text = text;
 		this.status = status;
 		this.mittente = mittente;
 		this.destinatario = destinatario;
 
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Integer getMittente() {
+		return mittente;
+	}
+
+	public void setMittente(Integer mittente) {
+		this.mittente = mittente;
+	}
+
+	public Integer getDestinatario() {
+		return destinatario;
+	}
+
+	public void setDestinatario(Integer destinatario) {
+		this.destinatario = destinatario;
+	}
+
+	@Override
+	public String toString() {
+		return "Notification [id=" + id + ", text=" + text + ", status=" + status + ", mittente=" + mittente
+				+ ", destinatario=" + destinatario + ", created_date=" + created_date + "]";
 	}
 
 }

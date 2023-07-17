@@ -19,7 +19,7 @@ import com.service.NotificationService;
 
 @RestController
 
-@RequestMapping("/api/company-service")
+@RequestMapping("/api/notification-service")
 public class NotificationController {
 
 	/*
@@ -36,23 +36,27 @@ public class NotificationController {
 	private NotificationService notificationService;
 
 	@PostMapping("/createNotification")
-	public Notification saveCompany(@RequestBody Notification notification) {
-		return notificationService.saveOrUpdateCompany(notification);
+	public Notification saveNotification(@RequestBody Notification notification) {
+		return notificationService.saveOrUpdateNotification(notification);
 	}
 
 	@PutMapping("/updateNotification")
-	public Notification updateCompany(@RequestBody Notification notification) {
-		return notificationService.saveOrUpdateCompany(notification);
+	public Notification updateNotification(@RequestBody Notification notification) {
+		return notificationService.saveOrUpdateNotification(notification);
 	}
 
 	@DeleteMapping("/deleteNotification/{vatNumber}")
-	public Map<Boolean, String> deleteCompany(@PathVariable String vatNumber) {
-		return notificationService.deleteCompany(vatNumber);
+	public Map<Boolean, String> deleteNotification(@PathVariable String vatNumber) {
+		return notificationService.deleteNotification(vatNumber);
 	}
 
 	@GetMapping(path = "/readNotifications", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Notification> findAllCompanies() {
-		return notificationService.findAllCompanies();
+	public List<Notification> findAllNotification() {
+		return notificationService.findAllNotification();
 	}
 
+	@GetMapping(path = "/readNotificationsByDestinatario", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Notification> findByDestinatario(Integer destinatario) {
+		return notificationService.findByDestinatario(destinatario);
+	}
 }

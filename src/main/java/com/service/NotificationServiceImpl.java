@@ -17,7 +17,7 @@ public class NotificationServiceImpl implements NotificationService {
 	private NotificationRepository notificationRepository;
 
 	@Override
-	public Notification saveOrUpdateCompany(Notification notification) {
+	public Notification saveOrUpdateNotification(Notification notification) {
 		Notification c = null;
 		try {
 			c = notificationRepository.save(notification);
@@ -29,14 +29,18 @@ public class NotificationServiceImpl implements NotificationService {
 	}
 
 	@Override
-	public List<Notification> findAllCompanies() {
+	public List<Notification> findAllNotification() {
 		return notificationRepository.findAll();
 	}
 
 	@Override
-	public Map<Boolean, String> deleteCompany(String vatNumber) {
+	public Map<Boolean, String> deleteNotification(String vatNumber) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public List<Notification> findByDestinatario(Integer destinatario) {
+		return notificationRepository.findByDestinatario(destinatario);
 	}
 
 }
